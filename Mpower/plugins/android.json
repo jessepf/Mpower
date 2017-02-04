@@ -1,0 +1,40 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "org.provisionasia.mpower"
+        },
+        "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "org.provisionasia.mpower"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "org.provisionasia.mpower"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "org.provisionasia.mpower"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "org.provisionasia.mpower"
+        },
+        "cordova-plugin-x-socialsharing": {
+            "PACKAGE_NAME": "org.provisionasia.mpower"
+        },
+        "ionic-plugin-keyboard": {
+            "PACKAGE_NAME": "org.provisionasia.mpower"
+        },
+        "cordova-inappbrowser": {
+            "PACKAGE_NAME": "org.provisionasia.mpower"
+        }
+    },
+    "dependent_plugins": {
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "org.provisionasia.mpower"
+        }
+    }
+}

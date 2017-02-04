@@ -1,0 +1,21 @@
+<ion-view title="" id="page2" cache-view="loaded_online['309']" class="home toolkit">
+	<ion-content padding="true" class=" manual-remove-top-padding">
+		
+		<!--Init--->
+		<div ng-init="init();"></div>
+		
+		<h3 id="heading-engage-Disability-Toolkit" style="color:#FFFFFF;font-weight:400;">
+			<i style="font-size:40px;" class="icon ion-ios-book-outline"></i>
+			<br>Engage Disability Toolkit</h3>
+		<div class="spacer" style="width: 300px; height: 5%;"></div>
+		<a href="#/content/toolkit" id="start-reading" style="color:#ffa07a;" class="button button-light button-block icon-right ion-android-arrow-forward">Start Reading</a>
+		
+		<a id="additional-resources" style="color:#FFFFFF;" class="button button-light button-small button-block button-clear" href="#/addRes/resource_link/{&quot;title&quot;:&quot;Additional Resources&quot;}/0">Additional Resources
+			<i class="icon-small ion-chevron-right"></i>
+		</a>
+		
+		<div ng-if="isOnline" ng-repeat="item in post | limitTo:'1'" ng-bind-html="item.content | video_filters"></div>
+		<p ng-if="!isOnline"><i class="icon ion-ios-world-outline"></i> &emsp;Trouble loading content from internet. Some functions may not work as expected.</p>
+
+	</ion-content>
+</ion-view>

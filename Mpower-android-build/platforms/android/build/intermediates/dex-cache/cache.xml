@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="/home/jesse/Mpower-android/Mpower-android-build/platforms/android/build/intermediates/exploded-aar/android/CordovaLib/unspecified/release/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="0a63aea271fc8993194a4319949ae5d8975c4b23">
+        <dex dex="/home/jesse/Mpower-android/Mpower-android-build/platforms/android/build/intermediates/pre-dexed/release/CordovaLib-unspecified-release_b26a86b4f4023387ea1d545f6cdf827ee2cbaa96.jar" />
+    </item>
+
+</items>

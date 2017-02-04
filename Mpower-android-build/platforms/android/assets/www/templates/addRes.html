@@ -1,0 +1,37 @@
+<ion-view title="{{title()}}" id="page5" ng-class="postType">
+	<ion-content padding="true" class="has-header">
+		<ion-refresher on-refresh="refresh()"></ion-refresher>
+
+		<div class="card list full-card" ng-repeat="item in post track by $index">
+			<ion-item ng-if="op &lt; 2" ng-class="item.class" href="{{item.internal_link}}">
+				<h2 ng-if="item.title" ng-bind-html="item.title | html_filters"></h2>
+				<i ng-if="(!item.image_url)" ng-class="'icon '+item.icon"></i>
+			</ion-item>	
+			<div ng-if="op == 2">
+				<h4 class="dark" style="{{item.image_url?'padding-left:85px':'padding-left:16px'}};padding-right:16px;" ng-if="item.title" ng-bind-html="item.title | html_filters"></h4>
+				<a style="position:relative;" ng-if="item.excerpt" id="click-to-know-more" class="button button-block button-assertive button-full" ng-click="openBrowser(item.link)">
+					<div style="{{item.image_url?'padding-left:80px;':'padding-left:16px;'}} text-align:left;">{{clickText()}} <i class="icon-small ion-chevron-right"></i></div>
+				</a>
+				<img ng-if="(item.image_url)" ng-src="{{item.image_url}}" style="position:absolute; padding-left: 12px; width: 75px; max-height: 100px; margin-top:-75px; margin-bottom:-25px; margin-left: auto; margin-right: auto;" ng-click="openBrowser(item.link)"></img>
+
+				<div class="item-text-wrap" id="postTemplate-list-item-container3">
+					<div ng-if="item.content" id="contents-markdown4" class="show-list-numbers-and-dots item-body">
+						<p style="margin-top:0px;color:#000000;" ng-bind-html="item.content | html_filters">
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+				
+		<p ng-if="warning_data.state" style="text-align:center;color:white"><i class="icon {{warning_data.icon}}"></i> &emsp;{{warning_data.message}}<br>Swipe down to refresh</p>
+
+		<ion-infinite-scroll
+		ng-if="moreItems && !loading"
+		on-infinite="loadMore()"
+		distance="1%">
+		</ion-infinite-scroll>
+	</ion-content>
+</ion-view>
+
+
+

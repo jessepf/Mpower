@@ -1,0 +1,38 @@
+<ion-view ng-init="init()" cache-view="false" title="{{title()}}" id="page3" ng-class="class()">
+	<ion-content padding="true" class="has-header">
+		<ion-refresher on-refresh="doRefresh()"></ion-refresher>
+		
+		<div class="card" ng-repeat="item in post track by $index" id="contents-card21">
+			<div ng-if="getImage(item.image) || (item.image && onLine)" class=" item item-image" href="{{item.internal_link}}">
+				<a href="{{item.internal_link}}">
+					<img src="{{getImage(item.image)}}" alt="{{item.title}}" style="display: block; width: 100%; height: 150px; margin-left: auto; margin-right: auto;"></img>
+				</a>
+			</div>
+			<ion-item ng-if="item.title || item.excerpt " class="item-icon-right dark item-text-wrap" id="contents-list-item9"  href="{{item.internal_link}}">
+				<h2 ng-bind-html="item.title | html_filters"></h2>
+				<div ng-if="item.excerpt" id="contents-markdown4" class="show-list-numbers-and-dots">
+					<p style="margin-top:0px;color:#000000;" ng-bind-html="item.excerpt | html_filters">
+					</p>
+				</div>
+				<i class="icon ion-chevron-right icon-accessory"></i>
+			</ion-item>
+		</div>
+		
+		<a ng-if="postId == 47" id="additional-resources" style="color:#FFFFFF;" class="button button-light button-small button-block button-outline" href="#/addRes/resource_link/{&quot;title&quot;:&quot;The Challenges&quot;,&quot;topic&quot;:35}/1">Additional Resources
+			<i class="icon-small ion-chevron-right"></i>
+		</a>
+		
+		<p ng-if="page.warning_data.state" style="text-align:center;color:white"><i class="icon {{page.warning_data.icon}}"></i> &emsp;{{page.warning_data.message}}<br>Swipe down to refresh</p>
+
+		<a ng-if="resource_id" id="additional-resources" style="color:#FFFFFF;" class="button button-light button-small button-block button-outline" href="#/addRes/resource_link/{&quot;title&quot;:&quot;{{item.title}}&quot;,&quot;topic&quot;:{{resource_id}}}/1">Additional Resources
+			<i class="icon-small ion-chevron-right"></i>
+		</a>
+
+		<!----inifite scroll -->
+		<ion-infinite-scroll
+		ng-if="more() && isOnline && !loading"
+		on-infinite="loadMore( params )"
+		distance="1%">
+		</ion-infinite-scroll>
+	</ion-content>
+</ion-view>

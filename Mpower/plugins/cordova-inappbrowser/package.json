@@ -1,0 +1,48 @@
+{
+  "name": "cordova-inappbrowser",
+  "version": "1.0.6",
+  "description": "Cordova InAppBrowser Plugin",
+  "cordova": {
+    "id": "cordova-inappbrowser",
+    "platforms": [
+      "android",
+      "amazon-fireos",
+      "ubuntu",
+      "ios",
+      "wp7",
+      "wp8",
+      "windows8",
+      "windows",
+      "firefoxos"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Prasannaa1991/cordova-inappbrowser"
+  },
+  "keywords": [
+    "cordova",
+    "in",
+    "app",
+    "browser",
+    "inappbrowser",
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-amazon-fireos",
+    "cordova-ubuntu",
+    "cordova-ios",
+    "cordova-wp7",
+    "cordova-wp8",
+    "cordova-windows8",
+    "cordova-windows",
+    "cordova-firefoxos"
+  ],
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.1.0"
+    }
+  ],
+  "author": "Apache Software Foundation",
+  "license": "Apache 2.0"
+}

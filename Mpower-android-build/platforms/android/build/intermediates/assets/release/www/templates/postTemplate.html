@@ -1,0 +1,29 @@
+<ion-view ng-init="init()" cache-view="false" title="{{title() +': Reader'}}" scroll="true" id="page4" ng-class="class()">
+	<ion-content padding="true" class="has-header">
+	<ion-refresher on-refresh="doRefresh()"></ion-refresher>
+
+		<!--Init--->
+		<div ng-if="postType=='toolkit'" ng-init="sketchCat()"></div>
+		
+		<!--post--->
+		<div ng-repeat="item in post track by index">
+			<div class="list card" id="Post">
+				<ion-item class="item-text-wrap" id="postTemplate-list-item11">
+					<h2 ng-bind-html="item.title | html_filters"></h2>
+				</ion-item>
+				<div class="item item-body" id="postTemplate-list-item-container3">
+					<div id="postTemplate-markdown5" class="show-list-numbers-and-dots">
+						<p style="margin-top:0px;color:#000000;" ng-bind-html="item.content | html_filters">
+						</p>
+					</div>
+				</div>
+			</div>
+			<a ng-if="resource_id" id="additional-resources" style="color:#FFFFFF;" class="button button-light button-small button-block button-outline" href="#/addRes/resource_link/{&quot;title&quot;:&quot;{{item.title}}&quot;,&quot;topic&quot;:{{resource_id}}}/1">Additional Resources
+				<i class="icon-small ion-chevron-right"></i>
+			</a>
+		</div>
+		
+		<p ng-if="page.warning_data.state" style="text-align:center;color:white"><i class="icon {{page.warning_data.icon}}"></i> &emsp;{{page.warning_data.message}}<br>Swipe down to refresh</p>
+
+	</ion-content>
+</ion-view>

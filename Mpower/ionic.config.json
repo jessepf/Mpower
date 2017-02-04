@@ -1,0 +1,8 @@
+{
+  "name": "Mpower",
+  "app_id": "63c80729",
+  "gulpStartupTasks": [
+    "sass",
+    "watch"
+  ]
+}

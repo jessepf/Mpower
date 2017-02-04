@@ -1,0 +1,53 @@
+$calm: #397DF2;
+$royal: #397EF4;
+$stable: #484043;
+$assertive: #ef473a;
+$link-color: $assertive;
+$ionicons-font-path: "../lib/ionic/fonts" !default;
+@import "../www/lib/ionic/scss";
+.home .scroll-content {
+	display: table !important;
+	width: 100% !important;
+	height: 100% !important;
+}
+
+.home .scroll {
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
+}
+
+.tiny-left-margin {
+	margin-left: 10px;
+}
+
+.home-button-left {
+	margin-left: 10px;
+}
+
+.home-button-right {
+	margin-right: 10px;
+}
+
+.home-button-right-tiny {
+	margin-right: 3px;
+	margin-bottom: 6px;
+	margin-top: 6px;
+}
+
+.home-button-left-tiny {
+	margin-left: 3px;
+	margin-bottom: 6px;
+	margin-top: 6px;
+}
+
+.bar.bar-energized {
+  background-color: transparent !important;
+  border-bottom: 0px;
+}
+.scroll-content {
+  overflow: visible !important;
+}
+.bar {
+    background-size: 100% 0px;
+}
