@@ -9810,22 +9810,22 @@ a.button {
 	background: 
 		linear-gradient(
 			rgba(255, 255, 255, 1),
-			rgba(255, 255, 255, 0.5)
-		),url('../img/home.jpg');
+			rgba(200,200,200, 0.5)
+		);
 	background-size: cover; }
 .toolkit {
 	background:
 		linear-gradient(
 			rgba(255,160,122, 1),
 			rgba(255,160,122, 0.7)
-		),url('../img/toolkit.jpg');
+		),url('../img/toolkit.png');
 	background-size: cover; }
 .resource_link {
 	background:
 		linear-gradient(
 			rgba(255,160,122, 1),
 			rgba(255,160,122, 0.7)
-		),url('../img/addRes.jpg');
+		),url('../img/addRes.png');
 	background-size: cover; }
 .news {
 	background-color:#cb585b; }
@@ -9836,7 +9836,7 @@ a.button {
 		linear-gradient(
 			rgba(72,64,67, 1),
 			rgba(72,64,67, 0.7)
-		),url('../img/about.jpg');
+		),url('../img/about.png');
 	background-size: cover;
 	background-color:#484043; }
 
@@ -9846,7 +9846,7 @@ a.button {
 			  rgba(136, 80, 14, 0.4),
 			  rgba(136, 80, 14, 0.8)
 			),
-			url('../img/toolkit.jpg');
+			url('../img/toolkit.png');
 		background-size: cover;
 		color: #444;
 		text-align:center; }
@@ -9863,7 +9863,7 @@ a.button {
 				rgba(96, 39, 72, 0.4),
 				rgba(96, 39, 72, 0.8)
 			),
-			url('../img/posts.jpg');
+			url('../img/posts.png');
 		background-size: cover;
 		color: #444;
 		text-align:center; }
@@ -9880,8 +9880,9 @@ a.button {
 				rgba(131, 31, 21, 0.4),
 				rgba(150, 31, 21, 0.8)
 			),
-			url('../img/news.jpg');
+			url('../img/news.png');
 		background-size: cover;
+		box-shadow: 1px 1px 1px gray;
 		color: #444; }
 		.button.button-news:hover {
 			color: #444;
@@ -9896,7 +9897,7 @@ a.button {
 				rgba(72, 64, 67, 0.4),
 				rgba(74, 64, 67, 0.8)
 			),
-			url('../img/about.jpg');
+			url('../img/about.png');
 		background-size: cover;
 		color: #444; }
 		.button.button-about:hover {

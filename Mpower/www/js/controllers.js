@@ -187,11 +187,7 @@ function ($scope, $stateParams, basicServices, $http, CacheFactory, $sce, $timeo
 			if(postId) $scope.post.push(postCache.get(postId));
 			else $scope.post = postCache.get(type+page);
 			$scope.post.forEach(function(post) {
-				if(first_done && !((postType == 'challenge') || (postType == 'toolkit'))) post.title_size='1.7em';
-				else {
-					post.title_size='2.2em';
-					first_done=true;
-				}
+				post.title_size='1.7em';
 				if(view_post && (post.image>0) && !imCache.get(post.image)) {
 					var media_link = baseUrl + 'media?include='+post.image+'&_query=[*].media_details.sizes.medium.source_url';
 					$http.get( media_link , http_ops ).then(function(image) {
@@ -219,11 +215,7 @@ function ($scope, $stateParams, basicServices, $http, CacheFactory, $sce, $timeo
 					var id = post.id;
 					if(type == 'toolkit' && id == 268) post.internal_link = '#/content/challenge';
 					else post.internal_link='#/post/' + type + '/' + id;
-					if(first_done && !((postType == 'challenge') || (postType == 'toolkit'))) post.title_size='1.7em';
-					else {
-						post.title_size='2.2em';;
-						first_done=true;
-					}
+					post.title_size='1.7em';
 					if(view_post) var i = $scope.post.length;
 					if(view_post) $scope.post.push(post);
 					postCache.remove(id);
@@ -265,11 +257,7 @@ function ($scope, $stateParams, basicServices, $http, CacheFactory, $sce, $timeo
 						$http.get('assets/toolkit/' + type + '_meta.json', http_ops ).then(function(offline) {
 							$scope.post = offline.data;
 							$scope.post.forEach(function(post) {
-								if(first_done && !((postType == 'challenge') || (postType == 'toolkit'))) post.title_size='1.7em';
-								else {
-									post.title_size='2.2em';
-									first_done=true;
-								}
+								post.title_size='1.7em';
 								if(type == 'toolkit' && post.id == 268) post.internal_link = '#/content/challenge';
 								else post.internal_link='#/post/' + type + '/' + post.id;
 								postCache.put(post.id,post);
