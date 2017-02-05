@@ -28,7 +28,7 @@
         "ionic-plugin-keyboard": {
             "PACKAGE_NAME": "org.provisionasia.mpower"
         },
-        "cordova-inappbrowser": {
+        "cordova-plugin-inappbrowser": {
             "PACKAGE_NAME": "org.provisionasia.mpower"
         }
     },

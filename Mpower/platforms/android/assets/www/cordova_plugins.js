@@ -59,9 +59,9 @@ module.exports = [
         "runs": true
     },
     {
-        "id": "cordova-inappbrowser.inappbrowser",
-        "file": "plugins/cordova-inappbrowser/www/inappbrowser.js",
-        "pluginId": "cordova-inappbrowser",
+        "id": "cordova-plugin-inappbrowser.inappbrowser",
+        "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
+        "pluginId": "cordova-plugin-inappbrowser",
         "clobbers": [
             "cordova.InAppBrowser.open",
             "window.open"
@@ -79,7 +79,7 @@ module.exports.metadata =
     "cordova-plugin-whitelist": "1.3.1",
     "cordova-plugin-x-socialsharing": "5.1.3",
     "ionic-plugin-keyboard": "2.2.1",
-    "cordova-inappbrowser": "1.0.6"
+    "cordova-plugin-inappbrowser": "1.6.1"
 };
 // BOTTOM OF METADATA
 });

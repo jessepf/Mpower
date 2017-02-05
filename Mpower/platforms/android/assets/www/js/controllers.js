@@ -5,19 +5,24 @@ angular.module('app.controllers', [])
 function ($scope, $stateParams, $cordovaSocialSharing) {
 	$scope.postType = $stateParams.postType;
 	$scope.share = function() {
-		$cordovaSocialSharing.share('Hi! I am learning more about how I can contribute to the communinty of persons with disabillity with Mpower app! Install now to know more! Acceptence, Accessibility, Advicacy for all!');
+		$cordovaSocialSharing.share('Hi! I am learning more about how I can contribute to the communinty of persons with disabillity with Mpower app! Acceptence, Accessibility, Advicacy for all! Install now to know more: http://mpower.provisionasia.org/share/mpower! ');
 	}
 	
 	$scope.email = function() {
 		window.plugins.socialsharing.shareViaEmail(
-			'Message: ',
-			'Subject | Mpower Contact Form',
+			'Message: ', 'Subject | Mpower Contact Form',
 			['mpower@provisionasia.org'], // To
-			null, //CC
-			null, // BCC
-			null, //Files
-			console.log('Email: Success'),
-			console.log('Email: Failed') 
+			null, null, null, //CC,BCC,Files
+			console.log('Email: Success'), console.log('Email: Failed') 
+		);
+	}
+	
+	$scope.bugReport = function() {
+		window.plugins.socialsharing.shareViaEmail(
+			'Message: ','Subject | Feedback/BugReport',
+			['mpower@provisionasia.org','jessepfrancis@provisionasia.org'], // To
+			null, null, null, //CC,BCC,Files
+			console.log('Email: Success'), console.log('Email: Failed') 
 		);
 	}
 }])
@@ -111,9 +116,9 @@ function ($scope, $stateParams, basicServices, $http, CacheFactory, $sce, $timeo
 	$scope.title = function() {
 		switch(postType) {
 			case 'challenge':
-			case 'toolkit': return 'Engage Disability Toolkit'; break;
-			case 'posts': return 'Articles'; break;
-			case 'news': return 'News'; break;
+			case 'toolkit': $scope.background = '251, 156, 108';return 'Engage Disability Toolkit'; break;
+			case 'posts': $scope.background = '139,41,97';return 'Articles'; break;
+			case 'news': $scope.background = '203,88,91';return 'News'; break;
 		}
 	}
  	
