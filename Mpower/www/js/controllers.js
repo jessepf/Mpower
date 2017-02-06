@@ -117,8 +117,8 @@ function ($scope, $stateParams, basicServices, $http, CacheFactory, $sce, $timeo
 		switch(postType) {
 			case 'challenge':
 			case 'toolkit': $scope.background = '251, 156, 108';return 'Engage Disability Toolkit'; break;
-			case 'posts': $scope.background = '139,41,97';return 'Articles'; break;
-			case 'news': $scope.background = '203,88,91';return 'News'; break;
+			case 'posts': $scope.background = '30,213,219';return 'Articles'; break;
+			case 'news': $scope.background = '219,36,30';return 'News'; break;
 		}
 	}
  	
@@ -187,7 +187,7 @@ function ($scope, $stateParams, basicServices, $http, CacheFactory, $sce, $timeo
 			if(postId) $scope.post.push(postCache.get(postId));
 			else $scope.post = postCache.get(type+page);
 			$scope.post.forEach(function(post) {
-				post.title_size='1.7em';
+				post.title_size='1.5em';
 				if(view_post && (post.image>0) && !imCache.get(post.image)) {
 					var media_link = baseUrl + 'media?include='+post.image+'&_query=[*].media_details.sizes.medium.source_url';
 					$http.get( media_link , http_ops ).then(function(image) {
@@ -215,7 +215,7 @@ function ($scope, $stateParams, basicServices, $http, CacheFactory, $sce, $timeo
 					var id = post.id;
 					if(type == 'toolkit' && id == 268) post.internal_link = '#/content/challenge';
 					else post.internal_link='#/post/' + type + '/' + id;
-					post.title_size='1.7em';
+					post.title_size='1.5em';
 					if(view_post) var i = $scope.post.length;
 					if(view_post) $scope.post.push(post);
 					postCache.remove(id);
@@ -257,7 +257,7 @@ function ($scope, $stateParams, basicServices, $http, CacheFactory, $sce, $timeo
 						$http.get('assets/toolkit/' + type + '_meta.json', http_ops ).then(function(offline) {
 							$scope.post = offline.data;
 							$scope.post.forEach(function(post) {
-								post.title_size='1.7em';
+								post.title_size='1.5em';
 								if(type == 'toolkit' && post.id == 268) post.internal_link = '#/content/challenge';
 								else post.internal_link='#/post/' + type + '/' + post.id;
 								postCache.put(post.id,post);

@@ -4,7 +4,7 @@ l<ion-view ng-init="init()" cache-view="false" title="{{title()}}" id="page3" ng
 		
 		<div class="card" ng-repeat="item in post track by $index" id="contents-card21">
 			<a href="{{item.internal_link}}" style="text-decoration:none">
-				<ion-item ng-if="item.title || item.excerpt " class="item-icon-right dark item-text-wrap" style="background:linear-gradient(rgba(250, 250, 250, 0.6),rgba(255, 255, 255, 0.8),rgba(255, 255, 255, 0.9)),url('{{getImage(item.image)}}');background-size: cover;">
+				<ion-item ng-if="item.title || item.excerpt " class="item-icon-right dark item-text-wrap" style="background:linear-gradient(rgba(233,233,233, 1),rgba(255, 255, 255, 1),rgba(255, 255, 255, 0.9));background-size: cover;">
 					<h1 style="font-size:{{item.title_size}};margin-top:0px;color: #000000;font-family: 'Garamond', Garamond, serif;" ng-bind-html="item.title | html_filters"></h1>
 					<div style="margin-top:0px;" ng-if="item.excerpt && (item.excerpt.length&gt;10)" class="show-list-numbers-and-dots">
 						<p style="margin-top:0px;color:gray;" ng-bind-html="item.excerpt | html_filters"></p>
