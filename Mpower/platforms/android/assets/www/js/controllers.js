@@ -5,7 +5,7 @@ angular.module('app.controllers', [])
 function ($scope, $stateParams, $cordovaSocialSharing) {
 	$scope.postType = $stateParams.postType;
 	$scope.share = function() {
-		$cordovaSocialSharing.share('Hi! I am learning more about how I can contribute to the communinty of persons with disabillity with Mpower app! Acceptence, Accessibility, Advicacy for all! Install now to know more: http://mpower.provisionasia.org/share/mpower! ');
+		$cordovaSocialSharing.share('Hi! I am learning more about how I can contribute to the communinty of persons with disabillity with Mpower app! Acceptence, Accessibility, Advicacy for all! Install now to know more: http://provisionasia.org/share/mpower ! ');
 	}
 	
 	$scope.email = function() {
@@ -175,6 +175,7 @@ function ($scope, $stateParams, basicServices, $http, CacheFactory, $sce, $timeo
 	
 	var wpLoader = function( type ) {
 		var cache;
+		var first_done = false;
 		if(postId) {
 			if($rootScope.loaded_online[postId] && postCache.get(postId)) cache = true;
 			else cache = false;
@@ -186,6 +187,7 @@ function ($scope, $stateParams, basicServices, $http, CacheFactory, $sce, $timeo
 			if(postId) $scope.post.push(postCache.get(postId));
 			else $scope.post = postCache.get(type+page);
 			$scope.post.forEach(function(post) {
+				post.title_size='1.7em';
 				if(view_post && (post.image>0) && !imCache.get(post.image)) {
 					var media_link = baseUrl + 'media?include='+post.image+'&_query=[*].media_details.sizes.medium.source_url';
 					$http.get( media_link , http_ops ).then(function(image) {
@@ -213,6 +215,7 @@ function ($scope, $stateParams, basicServices, $http, CacheFactory, $sce, $timeo
 					var id = post.id;
 					if(type == 'toolkit' && id == 268) post.internal_link = '#/content/challenge';
 					else post.internal_link='#/post/' + type + '/' + id;
+					post.title_size='1.7em';
 					if(view_post) var i = $scope.post.length;
 					if(view_post) $scope.post.push(post);
 					postCache.remove(id);
@@ -254,6 +257,7 @@ function ($scope, $stateParams, basicServices, $http, CacheFactory, $sce, $timeo
 						$http.get('assets/toolkit/' + type + '_meta.json', http_ops ).then(function(offline) {
 							$scope.post = offline.data;
 							$scope.post.forEach(function(post) {
+								post.title_size='1.7em';
 								if(type == 'toolkit' && post.id == 268) post.internal_link = '#/content/challenge';
 								else post.internal_link='#/post/' + type + '/' + post.id;
 								postCache.put(post.id,post);

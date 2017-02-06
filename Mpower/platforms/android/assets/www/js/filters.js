@@ -17,8 +17,10 @@ angular.module('app.filters', [])
 				
 		for (var i = 0; i < links.length; i++) {
 			var link = links[i].getAttribute('href');
-			links[i].removeAttribute('href');
-			links[i].setAttribute('onclick', 'window.open("'+ link +'", "_system", "location=yes,enableViewportScale=yes")');
+			if(link[0]!=='#') {
+				links[i].removeAttribute('href');
+				links[i].setAttribute('onclick', 'window.open("'+ link +'", "_system", "location=yes,enableViewportScale=yes")');
+			}
 		}
 		var iframe = htmlObject.getElementsByTagName('iframe');
 		

@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.provisionasia.mpower"
     android:hardwareAccelerated="true"
-    android:versionCode="9904"
-    android:versionName="0.99.4" >
+    android:versionCode="9905"
+    android:versionName="0.99.5-rc1" >
 
     <uses-sdk
         android:minSdkVersion="16"
