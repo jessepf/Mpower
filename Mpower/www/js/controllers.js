@@ -5,7 +5,7 @@ angular.module('app.controllers', [])
 function ($scope, $stateParams, $cordovaSocialSharing) {
 	$scope.postType = $stateParams.postType;
 	$scope.share = function() {
-		$cordovaSocialSharing.share('Hi! I am learning more about how I can contribute to the communinty of persons with disabillity with Mpower app! Acceptence, Accessibility, Advicacy for all! Install now to know more: http://provisionasia.org/share/mpower! ');
+		$cordovaSocialSharing.share('Hi! I am learning more about how I can contribute to the communinty of persons with disabillity with Mpower app! Acceptence, Accessibility, Advicacy for all! Install now to know more: http://provisionasia.org/share/mpower ! ');
 	}
 	
 	$scope.email = function() {
