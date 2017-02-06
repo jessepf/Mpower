@@ -2,21 +2,21 @@
 manifest
 ADDED from /home/jesse/Mpower-android/Mpower-android-build/platforms/android/AndroidManifest.xml:2:1-16:12
 	package
-		ADDED from /home/jesse/Mpower-android/Mpower-android-build/platforms/android/AndroidManifest.xml:2:100-134
+		ADDED from /home/jesse/Mpower-android/Mpower-android-build/platforms/android/AndroidManifest.xml:2:102-136
 		INJECTED from /home/jesse/Mpower-android/Mpower-android-build/platforms/android/AndroidManifest.xml
 		INJECTED from /home/jesse/Mpower-android/Mpower-android-build/platforms/android/AndroidManifest.xml
 	android:versionName
-		ADDED from /home/jesse/Mpower-android/Mpower-android-build/platforms/android/AndroidManifest.xml:2:72-99
+		ADDED from /home/jesse/Mpower-android/Mpower-android-build/platforms/android/AndroidManifest.xml:2:73-101
 		INJECTED from /home/jesse/Mpower-android/Mpower-android-build/platforms/android/AndroidManifest.xml
 		INJECTED from /home/jesse/Mpower-android/Mpower-android-build/platforms/android/AndroidManifest.xml
 	android:hardwareAccelerated
 		ADDED from /home/jesse/Mpower-android/Mpower-android-build/platforms/android/AndroidManifest.xml:2:11-45
 	android:versionCode
-		ADDED from /home/jesse/Mpower-android/Mpower-android-build/platforms/android/AndroidManifest.xml:2:46-71
+		ADDED from /home/jesse/Mpower-android/Mpower-android-build/platforms/android/AndroidManifest.xml:2:46-72
 		INJECTED from /home/jesse/Mpower-android/Mpower-android-build/platforms/android/AndroidManifest.xml
 		INJECTED from /home/jesse/Mpower-android/Mpower-android-build/platforms/android/AndroidManifest.xml
 	xmlns:android
-		ADDED from /home/jesse/Mpower-android/Mpower-android-build/platforms/android/AndroidManifest.xml:2:135-193
+		ADDED from /home/jesse/Mpower-android/Mpower-android-build/platforms/android/AndroidManifest.xml:2:137-195
 supports-screens
 ADDED from /home/jesse/Mpower-android/Mpower-android-build/platforms/android/AndroidManifest.xml:3:5-191
 	android:largeScreens

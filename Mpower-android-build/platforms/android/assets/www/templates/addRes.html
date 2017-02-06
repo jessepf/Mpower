@@ -8,7 +8,7 @@
 				<i ng-if="(!item.image_url)" ng-class="'icon '+item.icon"></i>
 			</ion-item>	
 			<div ng-if="op == 2">
-				<h4 class="dark" style="{{item.image_url?'padding-left:85px':'padding-left:16px'}};padding-right:16px;" ng-if="item.title" ng-bind-html="item.title | html_filters"></h4>
+				<h4 class="dark" style="font-family: 'Garamond', Garamond, serif;font-size:1.2em;{{item.image_url?'padding-left:85px':'padding-left:16px'}};padding-right:16px;" ng-if="item.title" ng-bind-html="item.title | html_filters"></h4>
 				<a style="position:relative;" ng-if="item.excerpt" id="click-to-know-more" class="button button-block button-assertive button-full" ng-click="openBrowser(item.link)">
 					<div style="{{item.image_url?'padding-left:80px;':'padding-left:16px;'}} text-align:left;">{{clickText()}} <i class="icon-small ion-chevron-right"></i></div>
 				</a>
