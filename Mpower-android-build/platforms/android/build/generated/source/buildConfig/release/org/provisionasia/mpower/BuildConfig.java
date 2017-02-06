@@ -8,6 +8,6 @@ public final class BuildConfig {
   public static final String APPLICATION_ID = "org.provisionasia.mpower";
   public static final String BUILD_TYPE = "release";
   public static final String FLAVOR = "";
-  public static final int VERSION_CODE = 9902;
-  public static final String VERSION_NAME = "0.99.2";
+  public static final int VERSION_CODE = 9903;
+  public static final String VERSION_NAME = "0.99.3";
 }
