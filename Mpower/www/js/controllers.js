@@ -10,19 +10,17 @@ function ($scope, $stateParams, $cordovaSocialSharing) {
 	
 	$scope.email = function() {
 		window.plugins.socialsharing.shareViaEmail(
-			'Message: ', 'Subject | Mpower Contact Form',
+			'Message: ', 'Mpower Contact Form',
 			['mpowercontact@provisionasia.org'], // To
-			null, null, null, //CC,BCC,Files
-			console.log('Email: Success'), console.log('Email: Failed') 
+			null, null, null, null, null
 		);
 	}
 	
 	$scope.bugReport = function() {
 		window.plugins.socialsharing.shareViaEmail(
-			'Message: ','Subject | Feedback/BugReport',
+			'Message: ','Feedback - BugReport',
 			['mpower@provisionasia.org'], // To
-			null, null, null, //CC,BCC,Files
-			console.log('Email: Success'), console.log('Email: Failed') 
+			null, null, null, null, null
 		);
 	}
 }])
@@ -106,7 +104,7 @@ function ($scope, $stateParams, $http, CacheFactory, $ionicLoading, $rootScope) 
 		switch(postType) {
 			case 'challenge':
 			case 'toolkit': $scope.background = '251, 156, 108';return 'Engage Disability Toolkit'; break;
-			case 'posts': $scope.background = '30,213,219';return 'Articles'; break;
+			case 'posts': $scope.background = '47,178,183';return 'Articles'; break;
 			case 'news': $scope.background = '219,36,30';return 'News'; break;
 		}
 	}

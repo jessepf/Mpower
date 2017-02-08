@@ -1,1 +1,1 @@
-angular.module("app.services",[]).factory("basicServices",["$rootScope","$cordovaNetwork",function($rootScope,$cordovaNetwork){return{isOnline:function(){return ionic.Platform.isWebView()?$cordovaNetwork.isOnline():navigator.onLine}}}]).service("BlankService",[function(){}]);
+angular.module("app.services",[]).factory("BlankFactory",[function(){}]).service("BlankService",[function(){}]);

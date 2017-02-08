@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Tue Feb 07 04:40:09 IST 2017
+#Wed Feb 08 06:15:25 IST 2017
 175.set=ASSET
 122.file=/home/jesse/Mpower-android/Mpower-android-build/platforms/android/build/intermediates/assets/release/www/lib/ngCordova/dist/ng-cordova-mocks.min.js
 60.set=ASSET

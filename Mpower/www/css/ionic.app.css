@@ -9838,7 +9838,7 @@ a.button {
 	background-size: cover;
 	background-position: center;}
 .posts {
-	background-color:rgb(30,213,219); }
+	background-color:rgb(47,178,183); }
 .about {
 	background:
 		linear-gradient(
@@ -9873,7 +9873,6 @@ a.button {
 			),
 			url('../img/posts.png');
 		background-size: cover;
-		background-position: center;
 		color: #444;
 		text-align:center; }
 		.button.button-posts:hover {
