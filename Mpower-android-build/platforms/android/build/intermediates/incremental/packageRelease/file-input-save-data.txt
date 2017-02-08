@@ -1,11 +1,11 @@
 #Internal package file, do not edit.
-#Tue Feb 07 03:59:52 IST 2017
+#Tue Feb 07 04:40:09 IST 2017
 175.set=ASSET
 122.file=/home/jesse/Mpower-android/Mpower-android-build/platforms/android/build/intermediates/assets/release/www/lib/ngCordova/dist/ng-cordova-mocks.min.js
 60.set=ASSET
 129.file=/home/jesse/Mpower-android/Mpower-android-build/platforms/android/build/intermediates/assets/release/www/lib/ionic/scss/_animations.scss
 52.set=ASSET
-176.file=/home/jesse/Mpower-android/Mpower-android-build/platforms/android/build/intermediates/res/resources-release.ap_/res/drawable-hdpi-v4/ic_action_previous_item.png
+176.file=/home/jesse/Mpower-android/Mpower-android-build/platforms/android/build/intermediates/res/resources-release.ap_/res/drawable-mdpi-v4/ic_action_previous_item.png
 144.base=/home/jesse/Mpower-android/Mpower-android-build/platforms/android/build/intermediates/assets/release
 53.base=/home/jesse/Mpower-android/Mpower-android-build/platforms/android/build/intermediates/assets/release
 44.set=ASSET
@@ -491,7 +491,7 @@ count=188
 170.file=/home/jesse/Mpower-android/Mpower-android-build/platforms/android/build/intermediates/assets/release/www/lib/angular-sanitize/README.md
 70.set=ASSET
 62.set=ANDROID_RESOURCE
-177.file=/home/jesse/Mpower-android/Mpower-android-build/platforms/android/build/intermediates/res/resources-release.ap_/res/drawable-mdpi-v4/ic_action_previous_item.png
+177.file=/home/jesse/Mpower-android/Mpower-android-build/platforms/android/build/intermediates/res/resources-release.ap_/res/drawable-hdpi-v4/ic_action_previous_item.png
 145.base=/home/jesse/Mpower-android/Mpower-android-build/platforms/android/build/intermediates/assets/release
 54.base=/home/jesse/Mpower-android/Mpower-android-build/platforms/android/build/intermediates/res/resources-release.ap_
 54.set=ANDROID_RESOURCE

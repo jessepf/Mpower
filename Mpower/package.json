@@ -1,7 +1,7 @@
 {
   "name": "mpower",
   "version": "1.1.1",
-  "description": "Mpower: An Ionic project",
+  "description": "Mpower: Acceptance.Accessibility.Advocacy for all",
   "dependencies": {
     "cordova-uglify": "^0.2.8",
     "gulp": "^3.5.6",

@@ -58,11 +58,10 @@ angular.module('app.filters', [])
 			if($rootScope.isOnline) {
 				iframe[0].setAttribute('style',"position:absolute;top:0;left:0;width:100%;height:100%;");
 				iframe[0].setAttribute('frameborder',"0");
-				iframe[0].setAttribute('allowfullscreen',"");
 				iframe[0].removeAttribute('height');
 				iframe[0].removeAttribute('width');
 				angular.element(iframe[0]).wrap('<div style="position:relative;overflow:hidden;padding-bottom:56.25%;height:0;"></div>');
-			} else angular.element(iframe[0]).replaceWith('');
+			} else angular.element(iframe[0]).replaceWith('<p><i class="icon ion-ios-world-outline"></i> &emsp;Trouble loading content from internet. Some functions may not work as expected.</p>');
 		}
 		return $sce.trustAsHtml(htmlObject.outerHTML);
 	}

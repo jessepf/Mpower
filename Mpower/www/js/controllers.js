@@ -11,7 +11,7 @@ function ($scope, $stateParams, $cordovaSocialSharing) {
 	$scope.email = function() {
 		window.plugins.socialsharing.shareViaEmail(
 			'Message: ', 'Subject | Mpower Contact Form',
-			['mpower@provisionasia.org'], // To
+			['mpowercontact@provisionasia.org'], // To
 			null, null, null, //CC,BCC,Files
 			console.log('Email: Success'), console.log('Email: Failed') 
 		);
@@ -20,17 +20,15 @@ function ($scope, $stateParams, $cordovaSocialSharing) {
 	$scope.bugReport = function() {
 		window.plugins.socialsharing.shareViaEmail(
 			'Message: ','Subject | Feedback/BugReport',
-			['mpower@provisionasia.org','jessepfrancis@provisionasia.org'], // To
+			['mpower@provisionasia.org'], // To
 			null, null, null, //CC,BCC,Files
 			console.log('Email: Success'), console.log('Email: Failed') 
 		);
 	}
 }])
 
-.controller('preloadCtrl', ['$scope', '$stateParams', '$http', 'CacheFactory', '$timeout', '$rootScope',
-function ($scope, $stateParams, $http, CacheFactory, $timeout, $rootScope) {
-
-	var view_post = false;
+.controller('preloadCtrl', ['$scope', '$http', 'CacheFactory', '$rootScope',
+function ($scope, $http, CacheFactory, $rootScope) {
  	
  	if ( !CacheFactory.get('postCache') ) CacheFactory.createCache('postCache',{storageMode:'localStorage'});
 	var postCache = CacheFactory.get( 'postCache' );
@@ -80,34 +78,25 @@ function ($scope, $stateParams, $http, CacheFactory, $timeout, $rootScope) {
 		postTypes = ['toolkit','challenge','posts','news'];
 		if(angular.isUndefined($rootScope.loaded_online)) $rootScope.loaded_online = {};
 		$http.get('http://mpower.provisionasia.org/wp-json/wp/v2/posts?per_page=1&_query=[*].id', {timeout:3000})
-		.then(function(response) {
-			postTypes.forEach( function(type) {
-				preload(type);
-			});
-		}, function(response) { 
-			$rootScope.isOnline = false; 
-		});
+		.then(function(response) { postTypes.forEach( function(type) { preload(type); });
+		}, function(response) { $rootScope.isOnline = false; });
 	}
 	
 	home_init();
 }])
 
-.controller('wordpressCtrl', ['$scope', '$stateParams', 'basicServices', '$http', 'CacheFactory','$sce', '$timeout', '$ionicLoading', '$rootScope',
-function ($scope, $stateParams, basicServices, $http, CacheFactory, $sce, $timeout, $ionicLoading, $rootScope) {
+.controller('wordpressCtrl', ['$scope', '$stateParams', '$http', 'CacheFactory', '$ionicLoading', '$rootScope',
+function ($scope, $stateParams, $http, CacheFactory, $ionicLoading, $rootScope) {
 
-	baseUrl = 'http://mpower.provisionasia.org/wp-json/wp/v2/';
-	postType = $stateParams.postType, postId = $stateParams.postId;
-	http_ops = {timeout:9000};
-	warning = 0, page = 1, moreItems = ((postType !== 'toolkit') && (postType !== 'challenge')?false:true);
-	var view_post = false;
+	var baseUrl = 'http://mpower.provisionasia.org/wp-json/wp/v2/';
+	var postType = $stateParams.postType;
+	var postId = $stateParams.postId;
+	var http_ops = {timeout:9000};
+	var warning = 0;
+	var page = 1;
+	$scope.moreItems = (((postType == 'toolkit') || (postType == 'challenge'))?false:true);
 
-	$scope.page= {
-		'resource_id':null,
-		'warning_data': { state: false,
-			message: '', icon:''
-		},
-		'loading':false
-	};
+	$scope.warning_data = { state: false,	message: '', icon:'' };
 	
 	$scope.class = function() {
 		return ((postType == 'challenge')?'toolkit':postType);
@@ -130,32 +119,28 @@ function ($scope, $stateParams, basicServices, $http, CacheFactory, $sce, $timeo
 
 	$scope.post = [], image = [];
 
-	$http.get('http://mpower.provisionasia.org/wp-json/wp/v2/posts?per_page=1&_query=[*].id', {timeout:3000})
-		.then(function(response) { $rootScope.isOnline = true; }, function(response) { $rootScope.isOnline = false; } );
-	
 	$scope.$watch(function() {
 		return warning;
 	}, function() {
 		if(warning == 2 && $rootScope.isOnline) warning = 0;
-		//if(no_item) warning = 3;
 		switch(warning) {
-			case 0: $scope.page.warning_data = { "state":false }; break;
-			case 1: $scope.page.warning_data = {
+			case 0: $scope.warning_data = { "state":false }; break;
+			case 1: $scope.warning_data = {
 					"state":true,
 					"message":'Request timed out. Please make sure that you are connected to the internet.',
 					"icon":"ion-connection-bars"
 				}; break;
-			case 2: $scope.page.warning_data = {
+			case 2: $scope.warning_data = {
 					"state":true,
 					"message":'You are offline. Some functions may not work as expected while offline.',
 					"icon":"ion-ios-world-outline"
 					}; break;
-			case 3: $scope.page.warning_data = {
+			case 3: $scope.warning_data = {
 					"state":true,
 					"message":'Trouble connecting. Showing cached version of articles.',
 					"icon":"ion-connection-bars"
 					}; break;
-			case 4: $scope.page.warning_data = {
+			case 4: $scope.warning_data = {
 					"state":true,
 					"message":'No ' + $scope.title() + ' found.',
 					"icon":"ion-ios-list-outline"
@@ -163,12 +148,24 @@ function ($scope, $stateParams, basicServices, $http, CacheFactory, $sce, $timeo
 		}
 	});
 	
+	var checkOnline = function() {
+		$http.get('http://mpower.provisionasia.org/wp-json/wp/v2/posts?per_page=1&_query=[*].id', {timeout: 3000} ).then(function(response) { 
+			$rootScope.isOnline = true; 
+			warning = 0;
+		},function() { 
+			$rootScope.isOnline = false; 
+			warning = 3; 
+		});
+	}
+	
+	checkOnline();
+	
 	var loading = function( truth ) {
 		if(page == 1) {
 			if(truth) $ionicLoading.show({template: 'Loading...', duration: 5000 });
 			else $ionicLoading.hide();
 		}
-		$scope.page.loading = truth;
+		$scope.loading = truth;
 	}
 	
 	$scope.getImage = function( id ) { return image[id]; }
@@ -183,22 +180,24 @@ function ($scope, $stateParams, basicServices, $http, CacheFactory, $sce, $timeo
 			if ($rootScope.loaded_online[type+page] && postCache.get(type+page)) cache = true;
 			else cache = false;
 		}
-		if(view_post && cache) {
+		if(cache) {
 			if(postId) $scope.post.push(postCache.get(postId));
-			else $scope.post = postCache.get(type+page);
-			$scope.post.forEach(function(post) {
-				post.title_size='1.5em';
-				if(view_post && (post.image>0) && !imCache.get(post.image)) {
-					var media_link = baseUrl + 'media?include='+post.image+'&_query=[*].media_details.sizes.medium.source_url';
-					$http.get( media_link , http_ops ).then(function(image) {
-						image[post.image] = image.data[0];
-						imCache.put( post.image , image.data[0] );
-					},function(response) {
-						console.log('image failed',response.status);
-					});
-				} else if(imCache.get( post.image)) image[post.image] = imCache.get( post.image);
-			});
-			$http.get(baseUrl + 'posts?per_page=1&_query=[*].id', http_ops ).then(function(response) {warning = 0;},function() {warning = 3; });
+			else {
+				var posts = postCache.get(type+page);
+				posts.forEach(function(post) {
+					$scope.post.push(post);
+					if((post.image>0) && !imCache.get(post.image)) {
+						var media_link = baseUrl + 'media?include='+post.image+'&_query=[*].media_details.sizes.medium.source_url';
+						$http.get( media_link , http_ops ).then(function(image) {
+							image[post.image] = image.data[0];
+							imCache.put( post.image , image.data[0] );
+						},function(response) {
+							console.log('image failed',response.status);
+						});
+					} else if(imCache.get( post.image)) image[post.image] = imCache.get( post.image);
+				});
+			}
+			checkOnline();
 			loading(false);
 		} else {
 			var query = '_query=[*].{id: id, title: title.rendered, excerpt:excerpt.rendered, content: content.rendered, image: featured_media}';
@@ -215,16 +214,15 @@ function ($scope, $stateParams, basicServices, $http, CacheFactory, $sce, $timeo
 					var id = post.id;
 					if(type == 'toolkit' && id == 268) post.internal_link = '#/content/challenge';
 					else post.internal_link='#/post/' + type + '/' + id;
-					post.title_size='1.5em';
-					if(view_post) var i = $scope.post.length;
-					if(view_post) $scope.post.push(post);
+					var i = $scope.post.length;
+					$scope.post.push(post);
 					postCache.remove(id);
 					postCache.put( id , post );
 					if(!postId) {
 						postCache.remove(type+page);
 						postCache.put(type+page, response.data);
 					}
-					if(view_post && (post.image>0) && !imCache.get( post.image)) {
+					if((post.image>0) && !imCache.get( post.image)) {
 						var media_link = baseUrl + 'media?include='+post.image+'&_query=[*].media_details.sizes.medium.source_url';
 						$http.get( media_link , http_ops ).then(function(image) {
 							image[post.image] = image.data[0];
@@ -233,50 +231,41 @@ function ($scope, $stateParams, basicServices, $http, CacheFactory, $sce, $timeo
 					} else if(imCache.get( post.image)) image[post.image] = imCache.get( post.image);
 					$rootScope.loaded_online[id] = true;
 				});
-				loading(false);
 				if(!postId) $rootScope.loaded_online[type+page] = true;
 				warning = 0;
-				if(angular.isUndefined(response.data[0])) moreItems = false;
+				$rootScope.isOnline = true;
+				$scope.moreItems = ((angular.isUndefined(response.data[0])) || (postType == 'toolkit') || (postType == 'challenge'))?false:true;
+				loading(false);
 			}, function(response) {
-				if(response.status > 0) {
-					moreItems = false;
-					loading(false);
-				} else if(postCache.get(type+page) && view_post && !postId) {
+				if(postCache.get(type+page) && !postId) {
 					data = postCache.get(type+page);
 					data.forEach(function(post) {
 						$scope.post.push(post);
 					});
 					warning = 3;
 					loading(false);
-				} else if(postId && view_post && postCache.get(postId)) {
+				} else if(postId && postCache.get(postId)) {
 					$scope.post.push(postCache.get(postId));
 					warning = 3;
 					loading(false);
-				} else if(view_post) {
-					if(((type == 'toolkit') || (type == 'challenge')) && !postId) {
-						$http.get('assets/toolkit/' + type + '_meta.json', http_ops ).then(function(offline) {
-							$scope.post = offline.data;
-							$scope.post.forEach(function(post) {
-								post.title_size='1.5em';
-								if(type == 'toolkit' && post.id == 268) post.internal_link = '#/content/challenge';
-								else post.internal_link='#/post/' + type + '/' + post.id;
-								postCache.put(post.id,post);
-							});
-							loading(false);
+				} else if(((type == 'toolkit') || (type == 'challenge')) && !postId) {
+					$http.get('assets/toolkit/' + type + '_meta.json', http_ops ).then(function(offline) {
+						$scope.post = offline.data;
+						$scope.post.forEach(function(post) {
+							if(type == 'toolkit' && post.id == 268) post.internal_link = '#/content/challenge';
+							else post.internal_link='#/post/' + type + '/' + post.id;
+							postCache.put(post.id,post);
 						});
-						warning = 3;
-						$rootScope.loaded_online[type+page] = false;
-						console.log('here',postId);
-					} else if(postId && postCache.get(postId)) {
-						$scope.post.push(postCache.get(postId));
 						loading(false);
-						$rootScope.loaded_online[type+page] = false;
-					} else {
-						console.log('Data read error (Error Code: ' + response.status + ')');
-						warning = 1;
-						loading(false);
-					}
+					});
+					warning = 3;
+					$rootScope.loaded_online[type+page] = false;
+				} else {
+					console.log('Data read error (Error Code: ' + response.status + ')');
+					warning = 1;
+					loading(false);
 				}
+				$rootScope.isOnline = false;
 			});
 		}
 	}
@@ -296,18 +285,18 @@ function ($scope, $stateParams, basicServices, $http, CacheFactory, $sce, $timeo
 				warning = 1; 
 			});
 		}
-		view_post = true;
 		wpLoader(postType);	
 	}
 
-	//Page's butlers
 	$scope.doRefresh = function( other ) {
-		if(!$scope.page.loading) {
+		if(!$scope.loading) {
 			loading(true);
-			if($rootScope.isOnline) {
-				page = 1;
-				if(postId) postCache.remove(postId);
-				else postCache.remove((postType=='challenge'?'toolkit':postType)+page);
+			page = 1;
+			if(postId) $rootScope.loaded_online[id] = false;
+			else {
+				for(var i=0;i<page+1;i=i+1) {
+					$rootScope.loaded_online[postType+i] = false;
+				}
 			}
 			$scope.post = [];
 			page = 1;
@@ -315,17 +304,10 @@ function ($scope, $stateParams, basicServices, $http, CacheFactory, $sce, $timeo
 		}
 		$scope.$broadcast('scroll.refreshComplete');
  	}
- 	
- 	$scope.more = function() {
-		switch(postType) {
-			case 'toolkit': return false;
-			case 'challenge': return false;
-			default: return moreItems;
-		}
-	}
 	
- 	$scope.loadMore = function( other ) {
-		if(!$scope.page.loading) {
+ 	$scope.loadMore = function( ) {
+		if(!$scope.loading) {
+			$scope.loading = true;
 			page = page + 1;
 			wpLoader(postType);
 		}
@@ -333,10 +315,9 @@ function ($scope, $stateParams, basicServices, $http, CacheFactory, $sce, $timeo
 	}
 }])
 
-.controller('addResCtrl', ['$scope', '$stateParams', '$http', 'CacheFactory','$sce', '$ionicLoading', '$cordovaInAppBrowser','$rootScope','basicServices',
-function ($scope, $stateParams, $http, CacheFactory, $sce, $ionicLoading, $cordovaInAppBrowser, $rootScope, basicServices) {
+.controller('addResCtrl', ['$scope', '$stateParams', '$http', 'CacheFactory','$sce', '$ionicLoading', '$cordovaInAppBrowser','$rootScope',
+function ($scope, $stateParams, $http, CacheFactory, $sce, $ionicLoading, $cordovaInAppBrowser, $rootScope) {
 
-	//The variables and empty promises listed here
 	$scope.post = [];
 	var page = 1;
 	$scope.postType = $stateParams.postType;
@@ -345,7 +326,6 @@ function ($scope, $stateParams, $http, CacheFactory, $sce, $ionicLoading, $cordo
 	$scope.linkBaseURL = $scope.baseURL + $scope.postType;
 	if(angular.isUndefined($rootScope.loadedRes)) $rootScope.loadedRes = {};
 
-	//Handling online, offline, slow internets
 	$scope.no_item = 1;
 	var http_ops = { timeout: 9000 };
 	$scope.warning_data = {
@@ -353,7 +333,7 @@ function ($scope, $stateParams, $http, CacheFactory, $sce, $ionicLoading, $cordo
 		"message":'',
 		"icon":""
 	}
-	warning = 0;
+	var warning = 0;
 	
 	if ( ! CacheFactory.get('resCache') ) CacheFactory.createCache('resCache',{storageMode:'localStorage'});
 	var resCache = CacheFactory.get( 'resCache' );
@@ -361,9 +341,17 @@ function ($scope, $stateParams, $http, CacheFactory, $sce, $ionicLoading, $cordo
 	if ( ! CacheFactory.get('imCache') ) CacheFactory.createCache('imCache',{storageMode:'localStorage'});
 	var imCache = CacheFactory.get( 'imCache' );
 	
-	$http.get('http://mpower.provisionasia.org/wp-json/wp/v2/posts?per_page=1&_query=[*].id',{timeout:1000})
-		.success(function() { $rootScope.isOnline = true; })
-		.error(function() { $rootScope.isOnline = false; });
+	var checkOnline = function() {
+		$http.get('http://mpower.provisionasia.org/wp-json/wp/v2/posts?per_page=1&_query=[*].id', {timeout: 3000} ).then(function(response) { 
+			$rootScope.isOnline = true; 
+			warning = 0;
+		},function() { 
+			$rootScope.isOnline = false; 
+			warning = 2; 
+		});
+	}
+	
+	checkOnline();
 	
 	$scope.title = function() {
 		$scope.options = JSON.parse($stateParams.options);
@@ -410,19 +398,13 @@ function ($scope, $stateParams, $http, CacheFactory, $sce, $ionicLoading, $cordo
 					$scope.warning_data['message'] = 'No additional resources found for this section.';
 					$scope.warning_data['icon'] = 'ion-ios-list-outline';
 					break;
-			case 3: $scope.warning_data['state'] = true;
-					$scope.warning_data['message'] = 'Trouble connecting to internet.';
-					$scope.warning_data['icon'] = 'ion-ios-world-outline';
-					break;
 		}
 	});
 
-	//Those which takes you out of app
 	$scope.openBrowser = function(url) {
 		$cordovaInAppBrowser.open($sce.trustAsUrl(url), '_system');
    }
 
-	//Those which talk to www
 	$scope.sketchImage = function( i , id , quality ) {
 		var media_link = $scope.baseURL + 'media?include='+id+'&_query=[*].media_details.sizes.'+quality+'.source_url';
 		if(imCache.get(id)) $scope.post[i].image_url = imCache.get(id);
@@ -430,8 +412,10 @@ function ($scope, $stateParams, $http, CacheFactory, $sce, $ionicLoading, $cordo
 			$http.get( media_link , { timeout: 4000, cache:true } ).then(function(response) {
 				$scope.post[i].image_url = $sce.trustAsUrl(response.data[0]);
 				imCache.put(id, response.data[0]);
+				$rootScope.isOnline = true;
 			}, function() {
 				if(imCache.get(id)) $scope.post[i].image_url = imCache.get(id);
+				$rootScope.isOnline = false;
 			});
 		}
 	}
@@ -439,61 +423,30 @@ function ($scope, $stateParams, $http, CacheFactory, $sce, $ionicLoading, $cordo
 	$scope.$watch(function() { return $scope.no_item; }, function() {
 		if($scope.no_item == 0) warning = 3;
 	});
-	
-	var op0 = function() {
-		$scope.moreItems = false;
-		if($rootScope.loadedRes['tag_list'] && resCache.get('tag_list')) {
-			$scope.post = resCache.get('tag_list');
-			loading(false);
-		} else {
-			var local_url = $scope.baseURL + 'tags?_query=[*].{title:name, id: id, icon: description}';
-			$http.get( local_url , http_ops ).then( function(response) {
-				$scope.no_item = response.data.length;
-				response.data.forEach(function(value) {
-					var tag_check_url =$scope.linkBaseURL + '?_query=[*].id&tags=' + value.id;
-					$http.get( tag_check_url , http_ops ).then( function(list) {
-						if(list.data[0]>0){
-							$scope.post.push(value);
-							var i = $scope.post.length - 1;
-							$scope.post[i].internal_link = '#/addRes/resource_link/{"title":"'+value.title + '","topic":1,"tag":' + $scope.post[i].id + ',"tagName":"' + $scope.post[i].title + '"}/2';
-							$scope.post[i].class = ($scope.post[i].icon)?'item-icon-left dark item-text-wrap':'item dark item-text-wrap';
-							resCache.put('tag_list', $scope.post);
-						} else $scope.no_item--;
-					});
-				});
-				$rootScope.loadedRes['tag_list'] = true;
-				loading(false);
-			}, function() {
-				if(resCache.get('tag_list')) {
-					$scope.post = resCache.get('tag_list');
-					warning = 2;
-				} else warning = 1;
-				loading(false);
-			});
-		}
-	}
 
 	var op1 = function() {
 		$scope.moreItems = false;
 		if($rootScope.loadedRes[$scope.options.topic] && resCache.get($scope.options.topic)) {
 			$scope.post = resCache.get($scope.options.topic);
 			loading(false);
+			checkOnline();
 		} else {
 			var local_url = $scope.baseURL + 'tags?_query=[*].{title:name, id: id, icon: description}';
 			$http.get( local_url , http_ops ).then( function(response) {
 				$scope.no_item = response.data.length;
 				response.data.forEach(function(value) {
-					var tag_check_url =$scope.linkBaseURL + '?_query=[*].id&categories=' + $scope.options.topic + '&tags=' + value.id;
+					var tag_check_url =$scope.linkBaseURL + '?_query=[*].id&per_page=1&categories=' + $scope.options.topic + '&tags=' + value.id;
 					$http.get( tag_check_url , http_ops ).then( function(list) {
 						if(list.data[0]>0){
 							$scope.post.push(value);
 							var i = $scope.post.length - 1;
-							$scope.post[i].internal_link = '#/addRes/resource_link/{"title":"'+$scope.options.title + '","topic":'+ $scope.options.topic + ',"tag":' + $scope.post[i].id + ',"tagName":"' + $scope.post[i].title + '"}/2';
+							$scope.post[i].internal_link = '#/addRes/resource_link/{"title":"'+$scope.options.title + ': ' + $scope.post[i].title + '","topic":'+ $scope.options.topic + ',"tag":' + $scope.post[i].id + ',"tagName":"' + $scope.post[i].title + '"}/2';
 							$scope.post[i].class = ($scope.post[i].icon)?'item-icon-left dark item-text-wrap':'item dark item-text-wrap';
 							resCache.put($scope.options.topic, $scope.post);
 						} else $scope.no_item--;
 					});
 				});
+				$rootScope.isOnline = true;
 				$rootScope.loadedRes[$scope.options.topic] = true;
 				loading(false);
 			}, function() {
@@ -502,21 +455,21 @@ function ($scope, $stateParams, $http, CacheFactory, $sce, $ionicLoading, $cordo
 					warning = 2;
 				} else warning = 1;
 				loading(false);
+				$rootScope.isOnline = false;
 			});
 		}
 	}
 
 	var op2 = function() {
+		$scope.moreItems = true;
 		if($rootScope.loadedRes[$scope.options.topic+'+'+$scope.options.tag+'+'+page] && resCache.get($scope.options.topic+'+'+$scope.options.tag+'+'+page)) {
-			$scope.post = resCache.get($scope.options.topic+'+'+$scope.options.tag+'+'+page);
-			for(var i =0;i<$scope.post.length;i=i+1) {
-				if($scope.post[i].image > 0) $scope.sketchImage(i,$scope.post[i].image,'medium');
-			};
-			$http.get( $scope.linkBaseURL + '?_query=[*].id&per_page=1' , http_ops ).then( function(response) {
-				$rootScope.isOnline = true; warning = 0;
-			}, function(response) {
-				$rootScope.isOnline = true; warning = 2;
+			var posts = resCache.get($scope.options.topic+'+'+$scope.options.tag+'+'+page);
+			posts.forEach(function(post) {
+				$scope.post.push(post);
+				var i = $scope.post.length - 1;
+				if(($scope.post[i].image > 0) && !$scope.post[i].image_url) $scope.sketchImage(i,$scope.post[i].image,'medium');
 			});
+			checkOnline();
 			loading(false);
 		} else {
 			local_url = $scope.linkBaseURL + '?_query=[*].{id:id,title:title.rendered,excerpt:excerpt.rendered,content:content.rendered,image:featured_media}&categories='+$scope.options.topic+'&tags='+$scope.options.tag+'&page=' + page;
@@ -538,13 +491,14 @@ function ($scope, $stateParams, $http, CacheFactory, $sce, $ionicLoading, $cordo
 				loading(false);
 				$scope.moreItems = (angular.isDefined(response.data[0]))?true:false;
 				warning = 0;
+				$rootScope.isOnline = true;
 			}, function(response) {
 				if(resCache.get($scope.options.topic+'+'+$scope.options.tag+'+'+page)) {
 					$scope.post = resCache.get($scope.options.topic+'+'+$scope.options.tag+'+'+page);
 					warning = 2;
 				} else warning = 1;
 				loading(false);
-				
+				$rootScope.isOnline = false;
 			});
 		}
 	}
@@ -556,7 +510,6 @@ function ($scope, $stateParams, $http, CacheFactory, $sce, $ionicLoading, $cordo
 			$scope.post = [];
 			page = 1;
 			switch($scope.op) {
-				case '0':op0(); break;
 				case '1':op1(); break;
 				case '2':op2(); break;
 			}
@@ -565,12 +518,9 @@ function ($scope, $stateParams, $http, CacheFactory, $sce, $ionicLoading, $cordo
  	starter();
  	
  	$scope.refresh = function( other ) {
-		if($rootScope.isOnline) $rootScope.loadedRes[$scope.options.topic+($scope.options.tag?'+'+$scope.options.tag+'+'+page:'')] = false;
-		if(!$scope.loading) {
-			switch($scope.op) {
-				case '0':resCache.remove('tag_list'); break;
-				case '1':resCache.remove($scope.options.topic); break;
-				case '2':resCache.remove($scope.options.topic+'+'+$scope.options.tag+'+'+page); break;
+		if($rootScope.isOnline && !$scope.loading) {
+			for(var i = 1;i<page + 1; i= i+1) {
+				$rootScope.loadedRes[$scope.options.topic+($scope.options.tag?'+'+$scope.options.tag+'+'+i:'')] = false;
 			}
 			starter();
 		}
@@ -578,7 +528,7 @@ function ($scope, $stateParams, $http, CacheFactory, $sce, $ionicLoading, $cordo
 	}
 
 	$scope.loadMore = function( ) {
-		if($rootScope.isOnline && ($scope.op == 2) ) {
+		if(($scope.op == 2) && !$scope.loading ) {
 			$scope.loading = true;
 			page = page + 1;
 			op2();
