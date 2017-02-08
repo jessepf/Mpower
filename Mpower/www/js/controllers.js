@@ -290,9 +290,9 @@ function ($scope, $stateParams, $http, CacheFactory, $ionicLoading, $rootScope) 
 		if(!$scope.loading) {
 			loading(true);
 			page = 1;
-			if(postId) $rootScope.loaded_online[id] = false;
+			if(postId) $rootScope.loaded_online[postId] = false;
 			else {
-				for(var i=0;i<page+1;i=i+1) {
+				for(var i=1;i<page+1;i=i+1) {
 					$rootScope.loaded_online[postType+i] = false;
 				}
 			}
