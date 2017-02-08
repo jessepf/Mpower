@@ -9857,7 +9857,8 @@ a.button {
 			url('../img/toolkit.png');
 		background-size: cover;
 		color: #444;
-		text-align:center; }
+		text-align:center;
+		background-position: center; }
 		.button.button-toolkit:hover {
 			color: #444;
 			text-decoration: none; }
