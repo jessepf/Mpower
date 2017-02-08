@@ -1,6 +1,7 @@
-<ion-view title="" ng-init="init()" id="page2" cache-view="{{loaded_online['309']}}" class="toolkit">
+<ion-view title="" ng-init="init()" id="page2" class="toolkit">
 	<ion-content padding="true" class=" manual-remove-top-padding" style="text-align:center;">
-
+		<ion-refresher on-refresh="doRefresh()"></ion-refresher>
+		
 		<div class="spacer" style="height: 10vh;"></div>
 		<h3 id="heading-engage-Disability-Toolkit" style="color:#FFFFFF;font-weight:400;">
 			<i style="font-size:40px;" class="icon ion-ios-book-outline"></i>
@@ -9,7 +10,7 @@
 		<a href="#/content/toolkit" id="start-reading" style="color:#ffa07a;" class="button button-light button-block icon-right ion-android-arrow-forward">Start Reading</a>
 		
 		<div ng-repeat="item in post | limitTo:'1'" ng-bind-html="item.content | video_filters"></div>
-		
+
 		<a id="additional-resources" class="button button-light button-small" style="color:#ffa07a;" href="#/addRes/resource_link/{&quot;title&quot;:&quot;Additional Resources&quot;,&quot;topic&quot;:1}/1">&emsp;All Additional Resources&emsp;
 			<i class="icon-small ion-chevron-right"></i>
 		</a>

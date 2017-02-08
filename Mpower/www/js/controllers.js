@@ -72,12 +72,24 @@ function ($scope, $http, CacheFactory, $rootScope) {
 		}
 	}
 	
+	var preload_vid = function( ) {
+		if(!($rootScope.loaded_online['309'])) {
+			$http.get('http://mpower.provisionasia.org/wp-json/wp/v2/toolkit?include=309&_query=[*].{id: id, content: content.rendered}', {timeout:9000} ).then(function(post) {
+				postCache.put('309', post.data[0]);
+				$rootScope.loaded_online['309'] = true;
+			}, function(pre_data) {
+				$rootScope.isOnline = false;
+			});
+		}
+	}
+	
 	home_init = function() {
 		postTypes = ['toolkit','challenge','posts','news'];
 		if(angular.isUndefined($rootScope.loaded_online)) $rootScope.loaded_online = {};
-		$http.get('http://mpower.provisionasia.org/wp-json/wp/v2/posts?per_page=1&_query=[*].id', {timeout:3000})
-		.then(function(response) { postTypes.forEach( function(type) { preload(type); });
-		}, function(response) { $rootScope.isOnline = false; });
+		preload_vid();
+		postTypes.forEach( function(type) {
+			preload(type); 
+		});
 	}
 	
 	home_init();
@@ -178,6 +190,7 @@ function ($scope, $stateParams, $http, CacheFactory, $ionicLoading, $rootScope) 
 			if ($rootScope.loaded_online[type+page] && postCache.get(type+page)) cache = true;
 			else cache = false;
 		}
+		if(postId == 3) $scope.showShare = true;
 		if(cache) {
 			if(postId) $scope.post.push(postCache.get(postId));
 			else {

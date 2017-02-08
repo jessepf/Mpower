@@ -7,7 +7,7 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives
 
 .config(function($ionicConfigProvider, $sceDelegateProvider){
 	
-	$sceDelegateProvider.resourceUrlWhitelist([ 'self','*://*.*.*/**']);
+	$sceDelegateProvider.resourceUrlWhitelist([ 'self','*']);
 	
 })
 

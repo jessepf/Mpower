@@ -21,6 +21,11 @@
 			<a ng-if="resource_id" id="additional-resources" style="color:#FFFFFF;" class="button button-light button-small button-block button-outline" href="#/addRes/resource_link/{&quot;title&quot;:&quot;{{item.title}}&quot;,&quot;topic&quot;:{{resource_id}}}/1">Additional Resources
 				<i class="icon-small ion-chevron-right"></i>
 			</a>
+			<div ng-if="showShare" ng-controller="sharingCtrl" >
+				<a id="additional-resources" style="font-size:1.1em;color:rgba(251, 156, 108);" class="button button-light button-big button-block" ng-click="email()">
+					<i class="icon ion-ios-email"></i>&emsp;Get in touch with us!</ion-item>
+				</a>
+			</div>
 		</div>
 		
 		<p ng-if="warning_data.state" style="text-align:center;color:white"><i class="icon {{warning_data.icon}}"></i> &emsp;{{warning_data.message}}<br>Swipe down to refresh</p>

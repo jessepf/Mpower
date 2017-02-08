@@ -61,7 +61,7 @@ angular.module('app.filters', [])
 				iframe[0].removeAttribute('height');
 				iframe[0].removeAttribute('width');
 				angular.element(iframe[0]).wrap('<div style="position:relative;overflow:hidden;padding-bottom:56.25%;height:0;"></div>');
-			} else angular.element(iframe[0]).replaceWith('<p><i class="icon ion-ios-world-outline"></i> &emsp;Trouble loading content from internet. Some functions may not work as expected.</p>');
+			} else angular.element(iframe[0]).replaceWith('<p><i class="icon ion-ios-world-outline"></i> &emsp;Trouble loading content from internet. Some functions may not work as expected. Swipe down to refresh.</p>');
 		}
 		return $sce.trustAsHtml(htmlObject.outerHTML);
 	}
